@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Độ Nhạy Free Fire</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: #131b2e;
+            border: 2px solid #00e5ff;
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #00e5ff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        /* Khung hiển thị UID & Nút Copy */
+        .uid-box {
+            background: #1b263b;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .uid-info {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+        .uid-number {
+            color: #00e5ff;
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+        }
+        .copy-btn {
+            background: #00e5ff;
+            color: #0b0f19;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+            margin: 0;
+            width: auto;
+        }
+        .copy-btn:hover {
+            background: #38bdf8;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            background: #0b0f19;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+        }
+        input:focus {
+            border-color: #00e5ff;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+            outline: none;
+        }
+        .check-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #0284c7, #00e5ff);
+            border: none;
+            border-radius: 6px;
+            color: #0b0f19;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+        .check-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.6);
+        }
+        .result-box {
+            display: none;
+            margin-top: 25px;
+            background: #0b0f19;
+            border: 1px dashed #00e5ff;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .result-box h3 {
+            color: #22c55e;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 4px;
+        }
+        .stat-item span {
+            color: #94a3b8;
+        }
+        .stat-item strong {
+            color: #00e5ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>⚡ CHECK ĐỘ NHẠY ⚡</h2>
+        
+        <!-- Khung chứa UID & Nút Copy -->
+        <div class="uid-box">
+            <div class="uid-info">
+                UID Chủ Phòng (Z E U S) vô hồ sơ like và lấy code: 
+                <span class="uid-number" id="uid-text">1755440836</span>
+            </div>
+            <button class="copy-btn" onclick="copyUID()" id="btn-copy">SAO CHÉP</button>
+        </div>
+
+        <div class="form-group">
+            <label>Nhập dòng máy của bạn:</label>
+            <input type="text" id="phone" placeholder="Ví dụ: iPhone 13, Samsung..." autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label>Nhập mã code:</label>
+            <input type="text" id="code" placeholder="Nhập mã code vào đây..." autocomplete="off">
+        </div>
+
+        <button class="check-btn" onclick="checkSensitivity()">TIẾN HÀNH CHECK</button>
+
+        <div class="result-box" id="result">
+            <h3>🎉 KẾT QUẢ ĐỘ NHẠY VIP 🎉</h3>
+            <div class="stat-item"><span>Nhìn xung quanh:</span> <strong id="r1">...</strong></div>
+            <div class="stat-item"><span>Red Dot Sight:</span> <strong id="r2">...</strong></div>
+            <div class="stat-item"><span>Ống ngắm 2x:</span> <strong id="r3">...</strong></div>
+            <div class="stat-item"><span>Ống ngắm 4x:</span> <strong id="r4">...</strong></div>
+            <div class="stat-item"><span>AWM Sniper:</span> <strong id="r5">...</strong></div>
+            <div class="stat-item"><span>Nhìn quanh (Free Look):</span> <strong id="r6">...</strong></div>
+            <p style="text-align: center; margin-top: 12px; font-size: 12px; color: #00e5ff;">*Chỉ số nhân phẩm cực chuẩn xác! 😂</p>
+        </div>
+    </div>
+
+    <script>
+        // Hàm sao chép UID
+        function copyUID() {
+            let uidText = document.getElementById('uid-text').innerText;
+            navigator.clipboard.writeText(uidText).then(() => {
+                let btn = document.getElementById('btn-copy');
+                btn.innerText = "ĐÃ CHÉP! ✓";
+                btn.style.background = "#22c55e";
+                
+                setTimeout(() => {
+                    btn.innerText = "SAO CHÉP";
+                    btn.style.background = "#00e5ff";
+                }, 2000);
+            });
+        }
+
+        // Hàm kiểm tra mã ngầm là "like36" nhưng không hiện gợi ý ra ngoài
+        function checkSensitivity() {
+            let phone = document.getElementById('phone').value.trim();
+            let code = document.getElementById('code').value.trim().toLowerCase();
+
+            if(phone === "" || code === "") {
+                alert("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            if(code !== "like36") {
+                alert("Mã code không chính xác! Không thể lấy được độ nhạy đâu nhé!");
+                return;
+            }
+
+            document.getElementById('r1').innerText = Math.floor(Math.random() * 150) + 50;
+            document.getElementById('r2').innerText = Math.floor(Math.random() * 150) + 50;
+            document.getElementById('r3').innerText = Math.floor(Math.random() * 150) + 50;
+            document.getElementById('r4').innerText = Math.floor(Math.random() * 150) + 50;
+            document.getElementById('r5').innerText = Math.floor(Math.random() * 150) + 50;
+            document.getElementById('r6').innerText = Math.floor(Math.random() * 150) + 50;
+
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
